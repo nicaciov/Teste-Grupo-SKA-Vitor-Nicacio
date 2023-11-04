@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Teste_Grupo_SKA_Vitor_Nicacio.DAO;
+using Teste_Grupo_SKA_Vitor_Nicacio.Repository;
+
 namespace Teste_Grupo_SKA_Vitor_Nicacio
 {
     public class Program
@@ -8,6 +12,11 @@ namespace Teste_Grupo_SKA_Vitor_Nicacio
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<DataBaseContext>
+               (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+
+            builder.Services.AddScoped<IBlocoNotasRepository, BlocoNotasRepository>();
 
             var app = builder.Build();
 

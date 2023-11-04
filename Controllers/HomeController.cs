@@ -1,32 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Teste_Grupo_SKA_Vitor_Nicacio.Models;
+using Teste_Grupo_SKA_Vitor_Nicacio.Repository;
 
 namespace Teste_Grupo_SKA_Vitor_Nicacio.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IBlocoNotasRepository _iblocoNotasRepository;
+
+        public HomeController(IBlocoNotasRepository iblocoNotasRepository)
         {
-            _logger = logger;
+            _iblocoNotasRepository = iblocoNotasRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<BlocoNotas> listaNotas = _iblocoNotasRepository.Listar();
+
+            return View(listaNotas);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

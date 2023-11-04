@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<BlocoNotas>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,8 +10,8 @@
 
             <!-- Title -->
             <h4 class="card-header-title">
-                Scratchpad Checklist
-            </h4> 
+                Bloco de NOtas Teste SKA Vitor
+            </h4>
 
             <!-- Badge -->
             <span class="badge text-bg-secondary-subtle">
@@ -20,59 +21,58 @@
         </div>
         <div class="card-body">
 
-            <!-- Checklist -->
-            <div class="checklist" tabindex="0">
-                <div class="form-check" tabindex="0">
+            @if (Model != null && Model.Any())
+            {
+                <div class="checklist" tabindex="0">
 
-                    <a><i data-feather="check"></i> Feito </a>
-                    <a><i data-feather="trash"></i> Apagar </a>
+                    @foreach (BlocoNotas blocoNotas in Model)
+                    {
+                        @if (blocoNotas.STATUS == 1)
+                        {
+                            <div class="form-check" tabindex="0">
+                                <a asp-controller="Home" asp-action="FormularioEditarNota" asp-route-id="@blocoNotas.ID"><i data-feather="check-square"></i></a>
+                                <a asp-controller="Home" asp-action="FormularioExcluirNota" asp-route-id="@blocoNotas.ID"><i data-feather="trash"></i></a>
 
-                    <label class="form-check-label">Delete the old mess in functions files.</label>
+                                <label class="form-check-label">@blocoNotas.NOTA</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check" tabindex="0">
+                                <a asp-controller="Home" asp-action="FormularioEditarNota" asp-route-id="@blocoNotas.ID"><i data-feather="square"></i></a>
+                                <a asp-controller="Home" asp-action="FormularioExcluirNota" asp-route-id="@blocoNotas.ID"><i data-feather="trash"></i></a>
+
+                                <label class="form-check-label"><s>@blocoNotas.NOTA</s></label>
+                            </div>
+                        }
+                    }
+
                 </div>
-                <div class="form-check" tabindex="0">
-                    <input class="form-check-input" type="checkbox" id="checklistTwo">
-                    <label class="form-check-label">Refactor the core social sharing modules.</label>
-                </div>
-                <div class="form-check" tabindex="0">
-                    <input class="form-check-input" type="checkbox" id="checklistThree">
-                    <label class="form-check-label">Create the release notes for the new pages so customers get psyched.</label>
-                </div>
-                <div class="form-check" tabindex="0">
-                    <input class="form-check-input" type="checkbox" id="checklistFour">
-                    <label class="form-check-label">Send Dianna those meeting notes.</label>
-                </div>
-                <div class="form-check" tabindex="0">
-                    <input class="form-check-input" type="checkbox" id="checklistFive">
-                    <label class="form-check-label">Share the documentation for the new unified API.</label>
-                </div>
-                <div class="form-check" tabindex="0">
-                    <input class="form-check-input" type="checkbox" id="checklistSix" checked="">
-                    <label class="form-check-label">
-                        Clean up the Figma file with all of the avatars, buttons, and other
-                        components.
-                    </label>
-                </div>
-            </div>
+            }
+            else
+            {
+                <span>Não existem dados para serem exibidos.</span>
+            }
 
         </div>
         <div class="card-footer">
-            <div class="row align-items-center">
-                <div class="col">
+            <form class="mb-4" asp-controller="Home" asp-action="FormularioNovaNota" method="POST">
+                <div class="row align-items-center">
+                    <div class="col">
 
-                    <!-- Input -->
-                    <textarea class="form-control form-control-flush form-control-auto" data-autosize="" 
-                    rows="1" placeholder="Adicione uma nota nota . . ." style="overflow: hidden; overflow-wrap: break-word; text-align: start; height: 25px;"></textarea>
+                        <input id="nota" name="nota" class="form-control form-control-flush form-control-auto" data-autosize=""
+                               rows="1" placeholder="Adicione uma nota nota . . ." style="overflow: hidden; overflow-wrap: break-word; text-align: start; height: 25px;" />
 
+                    </div>
+                    <div class="col-auto">
+
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            Adicionar
+                        </button>
+
+                    </div>
                 </div>
-                <div class="col-auto">
-
-                    <!-- Button -->
-                    <button class="btn btn-sm btn-primary" fdprocessedid="j4fgz">
-                        Adicionar
-                    </button>
-
-                </div>
-            </div> <!-- / .row -->
+            </form>
         </div>
     </div>
 </div>

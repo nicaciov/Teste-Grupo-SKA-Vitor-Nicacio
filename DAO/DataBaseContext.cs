@@ -11,7 +11,7 @@ namespace Teste_Grupo_SKA_Vitor_Nicacio.DAO
 
         }
 
-        public DbSet<BlocoNotas> tabelaBLocoNotas { get; set; }
+        public DbSet<BlocoNotas> tabelaBlocoNotas { get; set; }
 
     }
 }

@@ -15,7 +15,7 @@ namespace Teste_Grupo_SKA_Vitor_Nicacio.Repository
 
         public BlocoNotas Salvar(BlocoNotas blocoNotas)
         {
-            _dataBaseContext.tableContacts.Add(blocoNotas);
+            _dataBaseContext.tabelaBlocoNotas.Add(blocoNotas);
             _dataBaseContext.SaveChanges();
 
             return blocoNotas;
@@ -23,12 +23,12 @@ namespace Teste_Grupo_SKA_Vitor_Nicacio.Repository
 
         public BlocoNotas Buscar(int id)
         {
-            return _dataBaseContext.tableContacts.FirstOrDefault(x => x.ID == id);
+            return _dataBaseContext.tabelaBlocoNotas.FirstOrDefault(x => x.ID == id);
         }
 
         public List<BlocoNotas> Listar()
         {
-            return _dataBaseContext.tableContacts.ToList();
+            return _dataBaseContext.tabelaBlocoNotas.ToList();
         }
 
         public BlocoNotas Atualizar(BlocoNotas blocoNotas)
@@ -39,7 +39,7 @@ namespace Teste_Grupo_SKA_Vitor_Nicacio.Repository
 
             blocoNotasEditar.STATUS = blocoNotas.STATUS;
 
-            _dataBaseContext.tableContacts.Update(blocoNotasEditar);
+            _dataBaseContext.tabelaBlocoNotas.Update(blocoNotasEditar);
             _dataBaseContext.SaveChanges();
 
             return blocoNotas;
@@ -51,7 +51,7 @@ namespace Teste_Grupo_SKA_Vitor_Nicacio.Repository
 
             if (blocoNotas == null) throw new System.Exception("Houve um erro ao atualizar a nota.");
 
-            _dataBaseContext.tableContacts.Remove(blocoNotas);
+            _dataBaseContext.tabelaBlocoNotas.Remove(blocoNotas);
             _dataBaseContext.SaveChanges();
 
             return true;
